@@ -4,6 +4,7 @@ import { ref, type Ref } from 'vue'
 const isListening: Ref<boolean> = ref<boolean>(false)
 const interimTranscript: Ref<string> = ref<string>('')
 const finalTranscript: Ref<string> = ref<string>('')
+const error: Ref<string> = ref<string>('')
 const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition
 
 const recognition = new SpeechRecognition()
@@ -66,6 +67,7 @@ recognition.onresult = (event) => {
 
 recognition.onerror = (e) => {
   console.log('onerror', e)
+  error.value = e
 }
 
 recognition.start()
@@ -73,5 +75,7 @@ recognition.start()
 
 <template>
   <p v-if="isListening">I'm listening...</p>
-  <p>{{ finalTranscript }}</p>
+  <p v-if="error">{{ error }}</p>
+  <p>finalTranscript: {{ finalTranscript }}</p>
+  <p>interimTranscripts: {{ interimTranscript }}</p>
 </template>
