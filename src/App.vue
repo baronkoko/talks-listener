@@ -65,9 +65,9 @@ recognition.onresult = (event) => {
   console.log('interimTranscript', interimTranscript.value)
 }
 
-recognition.onerror = (e) => {
-  console.log('onerror', e)
-  error.value = e
+recognition.onerror = () => {
+  console.log('onerror')
+  error.value = 'Error'
 }
 
 recognition.start()
